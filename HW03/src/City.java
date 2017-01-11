@@ -13,11 +13,9 @@ public class City extends JComponent{
 	
 	//public void functions to add people and buildings to array lists and output names
 	public void addPeople(Person p) {
-		people.add(p);
-		System.out.printf("%s\n", p.getName());}
+		people.add(p); }
 	public void addBuildings(Building b) {
-		buildings.add(b);
-		System.out.printf("%s\n", b.getbName());}
+		buildings.add(b); }
 	public void addPolice(Police p) {
 		police.add(p); }
 	public void addTeachers(Teacher t) {
