@@ -3,9 +3,11 @@ public class Police extends Person implements Employee{
 	public enum Role {Patrol, Sargent, Captain, Chief}
 	private Role role;
 	private int ID;
+	private String pInfo;
 	public Police(String n, int a, int num, Role r) {
 		super(n, a, num);
-		role = r;}
+		role = r;
+		pInfo = n+"\n"+a+"\n"+num+"\n"+r;}
 	
 	//get function to get police role
 	public Role getRole() {return role;}
@@ -20,4 +22,6 @@ public class Police extends Person implements Employee{
 	public void getID() {
 		
 	}
+	public String getPInfo() {
+		return pInfo; }
 }

@@ -1,12 +1,13 @@
 //class for teacher that is a part of the person class
 public class Teacher extends Person implements Employee{
 	private int gradeLevel;
-	private String certification;
+	private String certification, tInfo;
 	private int ID;
 	public Teacher(String n, int a, int num, int gl, String c) {
 		super(n, a, num);
 		gradeLevel = gl;
-		certification = c; }
+		certification = c; 
+		tInfo = n+"\n"+a+"\n"+num+"\n"+gl+"\n"+c; }
 	
 	//get functions to get teacher grade level and certification
 	public int getGradeLevel() {
@@ -24,4 +25,6 @@ public class Teacher extends Person implements Employee{
 	public void getID() {
 		
 	}
+	public String getTInfo() {
+		return tInfo; }
 }

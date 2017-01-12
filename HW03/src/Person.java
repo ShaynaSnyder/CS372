@@ -6,7 +6,7 @@ public abstract class Person extends JComponent{
 	public Person(String n, int a, int num){
 		name = n; 
 		age = a;
-		number = num;}
+		number = num; }
 	
 	//get functions to get name, age, and number variables
 	public String getName() {
