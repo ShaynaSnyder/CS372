@@ -1,18 +1,21 @@
-//class with data to test the city class
+/**
+ * This class provides information and graphics for the other classes
+ * @author ssnyder19
+ */
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.*;
 
 public class CityTest extends JComponent implements MouseMotionListener, MouseListener{
 	
 	int imageX, imageY, clickX, clickY, drag=-1, a=0;
-	int pX[] = {605, 325, 30};
-	int pY[] = {0, 0, 0};
-	int tX[] = {100, 405, 720};
-	int tY[] = {5, 0, 20};
-	int kX[] = {220, 515, 850};
-	int kY[] = {20, 25, 15};
+	int inSchool[] = {0,0,0,0,0,0,0,0,0};
+	int inCH[] = {0,0,0,0,0,0,0,0,0};
+    int[] x={625, 330, 30, 100, 420, 745, 220, 530, 850};
+    int[] y={0, 0, 0, 5, 0, 20, 20, 25, 15};
+	String sOcc="", chOcc="";
 	Image image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12;
 	Image[] imgs = {image4, image5, image6, image7, image8, image9, image10, image11, image12};
 	JFrame frame;
@@ -23,7 +26,10 @@ public class CityTest extends JComponent implements MouseMotionListener, MouseLi
 	public static Police[] police = {new Police("Terrence", 29, 1234567, Police.Role.Sargent), new Police("Charlie", 31, 8546732, Police.Role.Captain), new Police("Barry", 56, 9712322, Police.Role.Chief)};
 	public static Teacher[] teachers = {new Teacher("Wynter", 41, 4543276, 7, "Bachelor's"), new Teacher("Sherlock", 23, 7658779, 2, "Master's"), new Teacher("Amy", 57, 8764545, 9, "Bachelor's")};
 	public static Kid[] kids = {new Kid("Shayna", 7, 6104553, "Kit Kat"), new Kid("Cheree", 15, 7843454, "M&M's"), new Kid("Willy", 9, 8773434, "Twix")};
-	
+	/**
+	 * main function to test the City class
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		//creates city object
 		City city = new City();
@@ -63,7 +69,7 @@ public class CityTest extends JComponent implements MouseMotionListener, MouseLi
 		
 		String cityHallPic = "/resources/cityhall.png";
 		Image ch1 = Toolkit.getDefaultToolkit().getImage(CityTest.class.getResource(cityHallPic));
-		ch1 = ch1.getScaledInstance(470, 420, Image.SCALE_SMOOTH);
+		ch1 = ch1.getScaledInstance(470, 380, Image.SCALE_SMOOTH);
 		
 		String police1Pic = "/resources/police1.png";
 		Image police1 = Toolkit.getDefaultToolkit().getImage(CityTest.class.getResource(police1Pic));
@@ -79,7 +85,7 @@ public class CityTest extends JComponent implements MouseMotionListener, MouseLi
 		
 		String teacher1Pic = "/resources/teacher1.png";
 		Image teacher1 = Toolkit.getDefaultToolkit().getImage(CityTest.class.getResource(teacher1Pic));
-		teacher1 = teacher1.getScaledInstance(140, 135, Image.SCALE_SMOOTH);
+		teacher1 = teacher1.getScaledInstance(145, 135, Image.SCALE_SMOOTH);
 		
 		String teacher2Pic = "/resources/teacher2.png";
 		Image teacher2 = Toolkit.getDefaultToolkit().getImage(CityTest.class.getResource(teacher2Pic));
@@ -87,7 +93,7 @@ public class CityTest extends JComponent implements MouseMotionListener, MouseLi
 		
 		String teacher3Pic = "/resources/teacher3.png";
 		Image teacher3 = Toolkit.getDefaultToolkit().getImage(CityTest.class.getResource(teacher3Pic));
-		teacher3 = teacher3.getScaledInstance(100, 110, Image.SCALE_SMOOTH);
+		teacher3 = teacher3.getScaledInstance(90, 110, Image.SCALE_SMOOTH);
 		
 		String kid1Pic = "/resources/kid1.png";
 		Image kid1 = Toolkit.getDefaultToolkit().getImage(CityTest.class.getResource(kid1Pic));
@@ -95,7 +101,7 @@ public class CityTest extends JComponent implements MouseMotionListener, MouseLi
 		
 		String kid2Pic = "/resources/kid2.png";
 		Image kid2 = Toolkit.getDefaultToolkit().getImage(CityTest.class.getResource(kid2Pic));
-		kid2 = kid2.getScaledInstance(80, 100, Image.SCALE_SMOOTH);
+		kid2 = kid2.getScaledInstance(75, 100, Image.SCALE_SMOOTH);
 		
 		String kid3Pic = "/resources/kid3.png";
 		Image kid3 = Toolkit.getDefaultToolkit().getImage(CityTest.class.getResource(kid3Pic));
@@ -106,8 +112,12 @@ public class CityTest extends JComponent implements MouseMotionListener, MouseLi
 		frame.setSize(1000, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-	}
+		}
 	
+	/**
+	 * Initializes the values of the imgs array to the Images
+	 * @param 11 Image objects show which images to add to city
+	 */
 	public CityTest(Image i1, Image i2, Image i3, Image i4, Image i5, Image i6, Image i7, Image i8, Image i9, Image i10, Image i11, Image i12) {
 		image1 = i1;
 		image2 = i2;
@@ -124,76 +134,104 @@ public class CityTest extends JComponent implements MouseMotionListener, MouseLi
 		addMouseMotionListener(this);
 		addMouseListener(this);
 	}
+	/**
+	 * Function allows people images to move when mous is dragged
+	 */
     public void mouseDragged(MouseEvent e) {
         imageX = e.getX();
         imageY = e.getY();
         if(drag==-1){
-        for(int q=0; q<3; q++) {
-    	if((imageX>=pX[q] && imageX<=pX[q]+100) && (imageY>=pY[q]  && imageY<=pY[q]+100)) {
+        for(int q=0; q<9; q++) {
+    	if((imageX>=x[q] && imageX<=x[q]+100) && (imageY>=y[q]  && imageY<=y[q]+100)) {
     			drag=q;
     			a=q;
-    			break;}
-    	else if((imageX>=tX[q] && imageX<=tX[q]+100) && (imageY>=tY[q]  && imageY<=tY[q]+100)) {
-			drag=q+3;
-			a=q;
-			break;}
-    	else if((imageX>=kX[q] && imageX<=kX[q]+100) && (imageY>=kY[q]  && imageY<=kY[q]+100)) {
-			drag=q+6;
-			a=q;
-			break;}}}
+    			break;}}}
         
 		if(drag==a){
-		pX[a] = imageX;
-		pY[a] = imageY; }
+		x[a] = imageX;
+		y[a] = imageY; }
 		
-		else if(drag==a+3){
-		tX[a] = imageX;
-		tY[a] = imageY; }
-		
-		else if(drag==a+6){
-		kX[a] = imageX;
-		kY[a] = imageY; }
         repaint();
       }
       public void mouseMoved(MouseEvent e) {}
-      
+      /**
+       * Function allows people images to "enter" buildings when left on building images
+       */
       public void mouseReleased(MouseEvent e){
+          for(int l=3; l<9; l++){
+          	if((x[l]>10 && x[l]<250) && (y[l]>240 && y[l]<380)) {
+          		inSchool[l] = 1;}}
+          for(int l=0; l<3; l++){
+          	if((x[l]>500 && x[l]<850) && (y[l]>200 && y[l]<400)) {
+          		inCH[l] = 1;}}
+          repaint();
     	  drag=-1;
     	  a=0;}
-      
+      /**
+       * Function paints images depending on current image locations
+       */
       public void paint(Graphics g){
         Graphics2D g2 = (Graphics2D)g;
         g2.drawImage(image1, 0, 0, this);
-        g2.drawImage(image2,  1,  150,  this);
-        g2.drawImage(image3, 520,  100,  this);
-        int[] x={pX[0], pX[1], pX[2], tX[0], tX[1], tX[2], kX[0], kX[1], kX[2]};
-        int[] y={pY[0], pY[1], pY[2], tY[0], tY[1], tY[2], kY[0], kY[1], kY[2]};
-        for(int l=0; l<9; l++){
-        	if((x[l]>10 && x[l]<250) && (y[l]>200 && y[l]<380)) {}
-        	else if((x[l]>500 && x[l]<850) && (y[l]>200 && y[l]<400)) {}
-        	else
-        	g2.drawImage(imgs[l], x[l], y[l], this);
-        }}
-
+        g2.drawImage(image2,  10,  150,  this);
+        g2.drawImage(image3, 520,  130,  this);
+        for(int r=0; r<9; r++){
+        	if(inSchool[r]!=1 && inCH[r]!=1){
+        		g2.drawImage(imgs[r], x[r], y[r], this);}}
+        if(text!=null){
+        text.repaint();
+        text2.repaint();}}
+      /**
+       * Function outputs stats in text area when people or buildings are clicked
+       */
 	public void mouseClicked(MouseEvent e){
         clickX = e.getX();
         clickY = e.getY();
 		text = new JTextArea();
 		text2 = new JTextArea();
-		text.setBounds(380, 550, 100, 80);
-		text2.setBounds(480, 550, 100, 80);
+		text.setBounds(380, 550, 100, 100);
+		text2.setBounds(480, 550, 100, 100);
 		add(text);
 		add(text2);
-		for(int i=0; i<3; i++) {
-    	if((clickX>=pX[i] && clickX<=pX[i]+100) && (clickY>=pY[i]  && clickY<=pY[i]+100)){
-    		text.setText(" Name:\n Age:\n Phone Number:\n Role:");
-    		text2.setText(police[i].getPInfo()); }
-    	else if((clickX>=tX[i] && clickX<=tX[i]+100) && (clickY>=tY[i]  && clickY<=tY[i]+100)){
-    		text.setText(" Name:\n Age:\n Phone Number:\n Grade Level:\n Certification:");
-    		text2.setText(teachers[i].getTInfo()); }
-    	else if((clickX>=kX[i] && clickX<=kX[i]+100) && (clickY>=kY[i]  && clickY<=kY[i]+100)){
-    		text.setText(" Name:\n Age:\n Phone Number:\n Favorite Candy:");
-    		text2.setText(kids[i].getKInfo()); }}}
+		text.setEditable(false);
+		text2.setEditable(false);
+		if((clickX>10 && clickX<350) && (clickY>240 && clickY<480)) {
+			for(int l=3; l<9; l++){
+          		if(inSchool[l] == 1){
+          			if(l<6){
+          				sOcc = sOcc + teachers[l-3].getName() + "\n";
+          				inSchool[l]=0;
+          				x[l]=l*100-300;
+          				y[l]=400;}
+          			else{
+          				sOcc = sOcc + kids[l-6].getName() + "\n";
+          				inSchool[l]=0;
+          				x[l]=l*100-300;
+          				y[l]=400;}}}
+    		text.setText(" School\n Occupants:\n");
+    		text2.setText(sOcc);
+    		sOcc="";}
+		else if((clickX>550 && clickX<950) && (clickY>200 && clickY<480)) {
+			for(int k=0; k<3; k++){
+          		if(inCH[k] == 1){
+          			chOcc = chOcc + police[k].getName() + "\n";
+          			inCH[k]=0;
+          			x[k]=k*100+600;
+          			y[k]=400;}}
+    		text.setText(" City Hall\n Occupants:\n");
+    		text2.setText(chOcc);
+    		chOcc="";}
+		else{
+			for(int i=0; i<3; i++) {
+				if((clickX>=x[i] && clickX<=x[i]+100) && (clickY>=y[i]  && clickY<=y[i]+100) && inCH[i]==0){
+					text.setText(" Name:\n Age:\n Phone Number:\n Role:\n Employee ID:");
+					text2.setText(police[i].getPInfo()); }
+				else if((clickX>=x[i+3] && clickX<=x[i+3]+100) && (clickY>=y[i+3]  && clickY<=y[i+3]+100) && inSchool[i+3]==0){
+					text.setText(" Name:\n Age:\n Phone Number:\n Grade Level:\n Certification:\n Employee ID:");
+					text2.setText(teachers[i].getTInfo()); }
+				else if((clickX>=x[i+6] && clickX<=x[i+6]+100) && (clickY>=y[i+6]  && clickY<=y[i+6]+100) && inSchool[i+6]==0){
+					text.setText(" Name:\n Age:\n Phone Number:\n Favorite Candy:");
+					text2.setText(kids[i].getKInfo());}}}}
 	
 	public void mouseEntered(MouseEvent arg0) {}
 
